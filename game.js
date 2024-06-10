@@ -52,6 +52,7 @@ let winCond = [
         win: "paper"
     }
 ]
+let score = 0
 
 function playRound(curId) {
 
@@ -65,6 +66,7 @@ function playRound(curId) {
         if (winCond[i].type == humanPick) {
             if (winCond[i].win == compPick) {
                 returnList.push("win")
+                score += 1
                 return returnList
             } 
             else if (winCond[i].type == compPick) {
@@ -86,9 +88,11 @@ function playGame() {
         let status = playRound(textID);
         textID += 1
         document.getElementById("s" + textID).textContent = status[3] + " | AI: " + status[1] + " | You: " + status[0]
+        document.getElementById("pts").textContent = "Score: " + score
     }
 
 }
+
 
 document.getElementById("start").onclick = function() {
     playGame();
