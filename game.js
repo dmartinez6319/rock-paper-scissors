@@ -1,6 +1,5 @@
 console.log("SCPT TEST")
 
-// Use random method to get choice for round function
 function getComputerChoice() {
 
     let choice = ""
@@ -22,22 +21,6 @@ function getComputerChoice() {
 
 
 
-// Use random method to get choice for round function
-function getHumanChoice() {
-    
-    let choice = ""
-
-    do {
-        choice = window.prompt("Choose [rock] [paper] [scissors]")
-
-    } while (choice != "rock" && choice != "paper" && choice != "scissors")
-
-    return choice
-
-}
-
-
-// Simulate rounds for playGame func returning a win or loss value
 let winCond = [
     {
         type: "rock",
@@ -54,9 +37,7 @@ let winCond = [
 ]
 let score = 0
 
-function playRound(curId) {
-
-    let humanPick = getHumanChoice()
+function playRound(curId,humanPick) {
     let compPick = getComputerChoice()
     let returnList = [humanPick,compPick,curId]
     console.log("Computer chooses " + compPick)
@@ -75,6 +56,7 @@ function playRound(curId) {
             }
             else {
                 returnList.push("lose")
+                score -= 1
                 return returnList
             }
         }
@@ -85,7 +67,8 @@ function playRound(curId) {
 function playGame() {
     let textID = 0
     for (let i = 0; i < 5; i++) {
-        let status = playRound(textID);
+        let humanPick = document.getElementById("selection").value;
+        let status = playRound(textID,humanPick);
         textID += 1
         document.getElementById("s" + textID).textContent = status[3] + " | AI: " + status[1] + " | You: " + status[0]
         document.getElementById("pts").textContent = "Score: " + score
@@ -94,6 +77,5 @@ function playGame() {
 }
 
 
-document.getElementById("start").onclick = function() {
-    playGame();
-}
+
+document.querySelector("#start").onclick = () => playGame();
